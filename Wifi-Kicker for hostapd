@@ -10,5 +10,5 @@ hostapd_cli all_sta
 echo "Please input the MAC address you'd like to kick"
 read -e MAC
 echo "Kicking $MAC now..."
-hostapd_cli deauthenticate $MAC
+hostapd_cli deauthenticate $MAC >/dev/null
 exit 1

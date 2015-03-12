@@ -1,0 +1,9 @@
+#!/bin/bash
+#Kick any device from your hostapd wi-fi network
+clear #clears the screen
+hostapd_cli all_sta
+echo "Please input the MAC address you'd like to kick"
+read -e MAC
+echo "Kicking $MAC now..."
+hostapd_cli deauthenticate $MAC
+exit 1

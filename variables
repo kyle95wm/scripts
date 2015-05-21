@@ -1,0 +1,64 @@
+#!/bin/bash
+# This script shows how variables are used throughout a script.
+# Variables can be used to either write long commands (e.g - full paths to files)
+# or to fill in user input
+
+
+# Defining a varlable:
+# Format is:
+# var="some-string"
+
+# When var is called in your script it would output "some-string"
+
+# Start of variables section
+var1="Hello"
+var2="World"
+name=""
+# Notice how I left our name variable blank? We can use this later on for user input.
+
+read -p "What is your name? " name
+echo "$var1 $var2! My name is $name."
+
+
+# There are some cases where we might not want to define variables in our script.
+# Enter $REPLY!
+
+# This is a built-in variable in Bash.
+# $REPLY is used when no variable is defined in the "read" command.
+
+# Look down below for a simple example.
+# We will also be using if and else statements to make this fully work.
+
+echo "Hello there $name nice to meet you!"
+read -p "Did you find this scrip helpful? [y/n] "
+
+# Notice how I didn't define a variable? Now watch what happens.
+
+if [ $REPLY == "y" ] ; then
+	echo "I'm glad you think so."
+else
+	echo "How can I improve this script to better assist you? Please let me know."
+fi
+
+# Basically we said "If the user's response is y then thank the user for saying so
+# However if the user's reply is ANYTHING ELSE excecute the commands between else and fi"
+
+# Now let's have another example.
+
+
+read -p "Do you like college? [y/n] "
+
+if [ $REPLY == "y" ] ; then
+	echo "You're doing great!"
+elif [ $REPLY == "n" ] ; then
+	echo "You might fail college if you hate it. Please try to have more motivation."
+else
+	echo "You didn't answer my question!"
+fi
+
+# Let's break down what happened: 
+# We had our usual "reply == y" but we used an elif statement which is another form of "else".
+# We then told Bash that if the reply was equal to anything other than y or n to output something completly different.
+
+echo "Script completed!"
+exit 0

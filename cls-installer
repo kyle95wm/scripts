@@ -49,6 +49,9 @@ EOF
 elif [ $install_option == "n" ] ; then
 	echo "Exiting....."
 	exit 0
+else
+	echo "Invalid entry!"
+	exit 1
 fi
 }
 
@@ -74,6 +77,9 @@ if [ $uninstall_option == "y" ] ; then
 elif [ $uninstall_option == "n" ] ; then
 	echo "Good to know you find my command useful!"
 	exit 0
+else
+	echo "Invalid entry!"
+	exit 1
 fi
 }
 ### MAIN ###

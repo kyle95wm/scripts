@@ -65,6 +65,12 @@ read -p "Would you like to continue uninstalling CLS? [y/n ] : " uninstall_optio
 if [ $uninstall_option == "y" ] ; then
 	echo "Removing CLS..."
 	rm -r -f "/usr/local/bin/cls"
+	sleep 1s
+	echo "Doing some behind the scenes work...."
+	type cls
+	sleep 1s
+	hash -d cls
+	echo "Uninstall completed!"
 elif [ $uninstall_option == "n" ] ; then
 	echo "Good to know you find my command useful!"
 	exit 0

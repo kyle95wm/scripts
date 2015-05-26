@@ -33,6 +33,7 @@ sleep 1s
 clear
 menu
 prompt
+menu_check
 }
 
 function vr_swap {

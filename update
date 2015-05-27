@@ -1,0 +1,44 @@
+#!/bin/bash
+
+SCRIPT_NAME="$0"
+ARGS="$@"
+NEW_FILE="/tmp/new.sh"
+VERSION="1.0" # This should be changed whenever you update this script
+udate="" # Used for user input - this should be left blank
+check_upgrade () {
+
+  # check if there is a new version of this file
+  # In this case we are using a quiet version of wget and outputting the contents to our $NEW_FILE variable
+  wget --quiet -O - https://raw.githubusercontent.com/kyle95wm/scripts/master/update >$NEW_FILE
+  [ -f "$NEW_FILE" ] && {
+
+    # install a new version of this file
+    # again, in this example, this is done by just copying the new file
+    echo "Found a new version of me, updating myself..."
+    cp "$NEW_FILE" "$SCRIPT_NAME"
+    rm -f "$NEW_FILE"
+
+    # note that at this point this file was overwritten in the disk
+    # now run this very own file, in its new version!
+    echo "Running the new version..."
+    $SCRIPT_NAME $ARGS &
+
+    # now exit this old instance
+    exit 0
+  }
+
+  echo "I'm VERSION $VERSION, already the latest version."
+}
+
+main () {
+  # main script stuff
+  echo "Hello World! I'm the version $VERSION of the script."
+  # This is a way of not sending the script into a loop since there is no way for the script to tell if it REALLY is the newest version
+  read -p "Would you like to check for updates? [y/n]: " update
+if [ $update == "y" ] ; then
+	check_upgrade # If the user's reply is y then call our check_upgrade function
+else
+	echo "I will not check for updates, however I will ask you again next time."
+fi
+}
+main

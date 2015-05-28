@@ -4,7 +4,7 @@ SCRIPT_NAME="$0"
 ARGS="$@"
 NEW_FILE="/tmp/new.sh"
 VERSION="1.0" # This should be changed whenever you update this script
-udate="" # Used for user input - this should be left blank
+update="" # Used for user input - this should be left blank
 check_upgrade () {
 
   # check if there is a new version of this file
@@ -35,10 +35,12 @@ main () {
   echo "Hello World! I'm the version $VERSION of the script."
   # This is a way of not sending the script into a loop since there is no way for the script to tell if it REALLY is the newest version
   read -p "Would you like to check for updates? [y/n]: " update
-if [ $update == "y" ] ; then
+if [ "$update" == "y" ] ; then
 	check_upgrade # If the user's reply is y then call our check_upgrade function
 else
 	echo "I will not check for updates, however I will ask you again next time."
 fi
+echo "Goodbye!"
 }
 main
+exit 0

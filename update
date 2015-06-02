@@ -1,46 +1,48 @@
 #!/bin/bash
 
-SCRIPT_NAME="$0"
-ARGS="$@"
-NEW_FILE="/tmp/new.sh"
-VERSION="1.0" # This should be changed whenever you update this script
-update="" # Used for user input - this should be left blank
-check_upgrade () {
+# This script will go out to whaterver address you supply, download the file, and run a diff on the file to determine if it's a newer version or not.
 
-  # check if there is a new version of this file
-  # In this case we are using a quiet version of wget and outputting the contents to our $NEW_FILE variable
-  wget --quiet -O - https://raw.githubusercontent.com/kyle95wm/scripts/master/update >$NEW_FILE
-  [ -f "$NEW_FILE" ] && {
+# Variables
+VER="1.0" # A variable to call the version so that the user knows they've updated properly
+UPDATE_FILE="$0.tmp"
+UPDATE_BASE="https://raw.githubusercontent.com/kyle95wm/scripts/master/update"
 
-    # install a new version of this file
-    # again, in this example, this is done by just copying the new file
-    echo "Found a new version of me, updating myself..."
-    cp "$NEW_FILE" "$SCRIPT_NAME"
-    rm -f "$NEW_FILE"
+# The UPDATE_FILE and UPDATE_BASE can be whatever you want
 
-    # note that at this point this file was overwritten in the disk
-    # now run this very own file, in its new version!
-    echo "Running the new version..."
-    $SCRIPT_NAME $ARGS &
 
-    # now exit this old instance
-    exit 0
-  }
+# Now it's time to impliment the update feature into our script.
 
-  echo "I'm VERSION $VERSION, already the latest version."
-}
+# We can either straight out write it into the script, or put it into a function
 
-main () {
-  # main script stuff
-  echo "Hello World! I'm the version $VERSION of the script."
-  # This is a way of not sending the script into a loop since there is no way for the script to tell if it REALLY is the newest version
-  read -p "Would you like to check for updates? [y/n]: " update
-if [ "$update" == "y" ] ; then
-	check_upgrade # If the user's reply is y then call our check_upgrade function
-else
-	echo "I will not check for updates, however I will ask you again next time."
+
+# In this example I will put it into a function
+
+function update {
+# The following lines will check for an update to this script if the -s switch
+# is not used.
+
+# Original code by Dennis Simpson
+# Modified by Kyle Warwick-Mathieu
+if [ "$1" != "-s" ]; then # If there is no -s argument then run the updater
+	echo "Checking if script is up to date, please wait"
+	wget -nv -O $UPDATE_FILE $UPDATE_BASE >& /dev/null # This will silently download the file
+	diff $0 $UPDATE_FILE >& /dev/null # This will compare the current file you're running against the newly downloaded file
+	if [ "$?" != "0" -a -s $UPDATE_FILE ]; then # If the exit code is not 0 (in other words if the file is different)
+		mv $UPDATE_FILE $0 # Rename update file to the script you're running
+		chmod +x $0 # Change the mode on the newly renamed file
+		echo "$0 updated"
+		$0 -s # Runs the script with the -s argument to prevent an endless loop
+		exit
+	else
+		echo "No updates available"
+		rm $UPDATE_FILE # If no updates are available, simply remove the file
+	fi
 fi
-echo "Goodbye!"
 }
-main
-exit 0
+
+# Now we have to call the update function
+
+
+update # This will call our update function
+
+echo "Hello! I'm version $VER of the script!"

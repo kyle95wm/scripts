@@ -26,6 +26,9 @@ function update {
 if [ "$1" != "-s" ]; then # If there is no -s argument then run the updater
 	echo "Checking if script is up to date, please wait"
 	wget -nv -O $UPDATE_FILE $UPDATE_BASE >& /dev/null # This will silently download the file
+	if [ $? != "0" ] ; then
+		curl "$UPDATE_BASE" -o "$UPDATE_FILE"
+	fi
 	diff $0 $UPDATE_FILE >& /dev/null # This will compare the current file you're running against the newly downloaded file
 	if [ "$?" != "0" -a -s $UPDATE_FILE ]; then # If the exit code is not 0 (in other words if the file is different)
 		mv $UPDATE_FILE $0 # Rename update file to the script you're running

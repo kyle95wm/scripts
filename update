@@ -3,7 +3,7 @@
 # This script will go out to whaterver address you supply, download the file, and run a diff on the file to determine if it's a newer version or not.
 
 # Variables
-VER="1.1" # A variable to call the version so that the user knows they've updated properly
+VER="1.2" # A variable to call the version so that the user knows they've updated properly
 UPDATE_FILE="$0.tmp"
 UPDATE_BASE="https://raw.githubusercontent.com/kyle95wm/scripts/master/update"
 
@@ -16,7 +16,21 @@ UPDATE_BASE="https://raw.githubusercontent.com/kyle95wm/scripts/master/update"
 
 
 # In this example I will put it into a function
-
+function update_init {
+echo "Checking for available update methods....."
+which wget >/dev/null
+if [ $? != "0" ] ; then
+	which curl >/dev/null
+else
+	update
+	if [ $? != "0" ] ; then
+		echo "No available update methods found!"
+		exit 1
+	else
+		update
+	fi
+fi
+}
 function update {
 # The following lines will check for an update to this script if the -s switch
 # is not used.

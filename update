@@ -3,7 +3,7 @@
 # This script will go out to whaterver address you supply, download the file, and run a diff on the file to determine if it's a newer version or not.
 
 # Variables
-VER="1.3" # A variable to call the version so that the user knows they've updated properly
+VER="1.4" # A variable to call the version so that the user knows they've updated properly
 UPDATE_FILE="$0.tmp"
 UPDATE_BASE="http://raw.githubusercontent.com/kyle95wm/scripts/master/update"
 

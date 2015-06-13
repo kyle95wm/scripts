@@ -1,0 +1,16 @@
+<wiidisc version="1">
+<id game="RMC"/>
+<options>
+<section name="Testing">
+<option name="/MKW Replacement">
+<choice name="Enabled">
+<patch id="mkwfolder"/>
+</choice>
+</option>
+</section>
+</options>
+<patch id="mkwfolder">
+<folder external="/mkw" recursive="false"/>
+<folder external="/mkw" disc="/"/>
+</patch>
+</wiidisc>

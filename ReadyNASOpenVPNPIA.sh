@@ -17,7 +17,7 @@ if [ $? != "0" ] ; then
 
 	echo "NOTE: Enabling SSH may void your warrenty and Netgear will deny service."
 
-	read -p "Continue?"
+	read -p "Continue? [y/n]: "
 
 	if [ $REPLY == y ] ; then
 		echo "Great!"
@@ -35,8 +35,8 @@ else
 	echo "I will now create a file named userpass.file"
 	echo "This will have your PIA username and password inside of it"
 	echo "which you will enter below:"
-	read -p "Please enter your PIA username - this is the username you use to log in to the website to manage your account" piauser
-	read -p "Please enter your PIA password" piapass
+	read -p "Please enter your PIA username - this is the username you use to log in to the website to manage your account: " piauser
+	read -p "Please enter your PIA password: " piapass
 	cat > /etc/openvpn/userpass.file <<EOF
 $piauser
 $piapass

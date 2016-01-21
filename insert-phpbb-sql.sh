@@ -16,6 +16,7 @@ done
 until [ ! -z "$sql_pass" ] ; do
 read -p "Please enter your sql password: " sql_pass
 done
+echo "create database $db_name" | mysql -u $sql_user -p$sql_pass
 echo "Inserting backed up database into SQL...."
 gunzip < $db_name.gz | mysql -u $sql_user -p$sql_pass --default-character-set=utf8 $db_name
 if [ $? != "0" ] ; then
@@ -23,3 +24,4 @@ if [ $? != "0" ] ; then
 	exit 1
 else
 	echo "DONE!"
+fi

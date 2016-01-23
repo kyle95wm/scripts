@@ -13,23 +13,23 @@ fi
 apt-get update
 dpkg -L apache2 &>/dev/null
 if [ $? != "0" ] ; then
-	apt-get install apache2 -y &>/dev/null
+	apt-get install apache2 -y
 fi
 dpkg -L php5 &>/dev/null
 if [ $? != "0" ] ; then
-	apt-get install php5 -y &>/dev/null
+	apt-get install php5 -y
 fi
 dpkg -L phpmyadmin &>/dev/null
 if [ $? != "0" ] ; then
-	apt-get install phpmyadmin -y &>/dev/null
+	apt-get install phpmyadmin -y
 fi
 dpkg -L mysql-client &>/dev/null
 if [ $? != "0" ] ; then
-	apt-get install mysql-client -y &>/dev/null
+	apt-get install mysql-client -y
 fi
 dpkg -L mysql-server &>/dev/null
 if [ $? != "0" ] ; then
-	apt-get install mysql-server -y &>/dev/null
+	apt-get install mysql-server -y
 fi
 echo "Please answer the following questions:"
 until [ ! -z "$db_name" ] ; do

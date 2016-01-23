@@ -5,7 +5,32 @@
 db_name=""
 sql_user=""
 sql_pass=""
-
+if [ $UID != "0" ] ; then
+	echo "Please run this script as root."
+	exit 1
+fi
+# Package checks
+apt-get update
+dpkg -L apache2 &>/dev/null
+if [ $? != "0" ] ; then
+	apt-get install apache2 -y &>/dev/null
+fi
+dpkg -L php5 &>/dev/null
+if [ $? != "0" ] ; then
+	apt-get install php5 -y &>/dev/null
+fi
+dpkg -L phpmyadmin &>/dev/null
+if [ $? != "0" ] ; then
+	apt-get install phpmyadmin -y &>/dev/null
+fi
+dpkg -L mysql-client &>/dev/null
+if [ $? != "0" ] ; then
+	apt-get install mysql-client -y &>/dev/null
+fi
+dpkg -L mysql-server &>/dev/null
+if [ $? != "0" ] ; then
+	apt-get install mysql-server -y &>/dev/null
+fi
 echo "Please answer the following questions:"
 until [ ! -z "$db_name" ] ; do
 	read -p "What is the name of your database? Most of the time it's phpbb: " db_name

@@ -36,7 +36,7 @@ if [ $check == "y" ] ; then
 echo "backing up the interfaces file now...."
 cp /etc/network/interfaces /etc/network/interfaces.orig
 echo "Okay.....Setting up your interface file now....."
-sed -i 's/dns-nameservers 8.8.8.8 8.8.4.4/#dns-nameservers 8.8.8.8 8.8.4.4/g' /etc/network/interfaces
+echo "You're going to have to comment out the 'dns-nameservers' part on your ipv4 interface."
 cat >>/etc/network/interfaces <<EOF
 #IPV6 info added by script
 iface eth0 inet6 static

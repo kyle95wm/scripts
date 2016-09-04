@@ -25,7 +25,7 @@ if [ $? != 0 ] ; then
 	if [ $? != 0 ] ; then
 		curl -L https://github.com/digitalocean/doctl/releases/download/v1.4.0/doctl-1.4.0-linux-amd64.tar.gz  | tar xz
 		if [ $? != 0 ] ; then
-			echo "You have neither wget or curl installed. Please consider installing either one
+			echo "You have neither wget or curl installed. Please consider installing either one"
 			exit 1
 		fi
 	fi

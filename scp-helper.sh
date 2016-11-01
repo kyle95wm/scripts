@@ -20,7 +20,7 @@ if [ $MENU == "1" ] ; then
 	read -p "Please enter a directory on the REMOTE host to copy $LOCALFILE to: " REMOTEDIR
 	echo "Copying $LOCALFILE as $USER to $HOST at $REMOTEDIR...."
 	scp "$LOCALFILE" $USER@$HOST:$REMOTEDIR
-	if $? != "0" ] ; then
+	if [ $? != "0" ] ; then
 		echo "COPY FAILED!"
 		exit 1
 	fi

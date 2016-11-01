@@ -26,3 +26,18 @@ if [ $MENU == "1" ] ; then
 	fi
 	# END COPY FROM LOCALHOST TO REMOTE HOST
 fi
+
+if [ $MENU == "2" ] ; then
+	# BEGIN COPY FROM REMOTE HOST TO LOCALHOST
+        read -p "Please enter the FULL path of the file you would like copied from the remote server: " LOCALFILE
+        read -p "Please enter the username of the remote host: " USER
+        read -p "Please enter the host you would like to use (IP or FQDN): " HOST
+        read -p "Please enter a directory on the LOCAL host to copy $LOCALFILE to: " REMOTEDIR
+        echo "Copying $LOCALFILE as $USER from $HOST at $REMOTEDIR to LOCAL HOST at $HOME...."
+	scp $USER@$HOST:$LOCALFILE $HOME
+        if [ $? != "0" ] ; then
+                echo "COPY FAILED!"
+                exit 1
+        fi
+	# END COPY FROM REMOTE HOST TO LOCAL HOST
+fi

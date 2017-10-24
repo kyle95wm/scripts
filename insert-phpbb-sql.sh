@@ -15,6 +15,9 @@ dpkg -L apache2 &>/dev/null
 if [ $? != "0" ] ; then
 	apt-get install apache2 -y
 fi
+dpkg -L pho7.1 &>/dev/nul
+if [ $? == 0 ] ; then
+fi
 dpkg -L php5 &>/dev/null
 if [ $? != "0" ] ; then
 	apt-get install php5 -y

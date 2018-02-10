@@ -10,3 +10,13 @@ if [ $one == 1 ] || [ $two == 2 ] ; then
 else
 	echo "False"
 fi
+
+# This if statement relies on both tests returning true.
+
+if [ $one == 1 ] && [ $two == 2 ] ; then
+	echo "Both values returned true"
+else
+	echo "At least one variable MUST be true. 
+	The first variable is $one which should be 1.
+	The second variable is $two when it should return 2."
+fi

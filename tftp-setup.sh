@@ -22,7 +22,7 @@ apt-get update && apt-get upgrade -y && apt-get install xinetd tftpd tftp -y
 
 # Next let's insert our xinetd configuration for tftp
 
-cat >/etc/xinetd.d/tftp/ <<EOF
+cat >/etc/xinetd.d/tftp <<EOF
 service tftp
 {
 protocol        = udp

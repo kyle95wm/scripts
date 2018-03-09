@@ -10,7 +10,7 @@ if [ -d "$dir/$year/$month" ] ; then # Check if month's directory does not exist
 		# We also grab the month name instead of number.
 		# For example, a message might say "Hi, just letting you know that the
 		# recordings for the month of January were purged.
-		echo "Hi, just letting you know that the recordings for the month of $(date -d '-3 months' +%M) have been purged." | mail -s purged kyle95wm@gmail.com
+		echo "Hi, just letting you know that the recordings for the month of $(date -d '-3 months' +%b) have been purged." | mail -s purged kyle95wm@gmail.com
 	else
 		# If the job failed, we will send a different email using the same concept as before.
 		# We will also tell the administrator which server failed via its IP address.

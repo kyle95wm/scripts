@@ -14,7 +14,7 @@ echo "Anything else=exit"
 }
 
 function prompt {
-read -p "Please enter a number from the menu, or anything else to exit: " menu
+read -rp "Please enter a number from the menu, or anything else to exit: " menu
 }
 
 # The following function will check the user's input and decide a course of action based on that input

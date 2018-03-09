@@ -1,8 +1,0 @@
-sudo: false
-language: bash
-
-before_script:
-    - curl -L "https://raw.githubusercontent.com/kyle95wm/scripts/master/test.sh"
-
-script:
-    - bash test.sh

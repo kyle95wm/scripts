@@ -16,7 +16,7 @@ var2="World"
 name=""
 # Notice how I left our name variable blank? We can use this later on for user input.
 
-read -p "What is your name? " name
+read -rp "What is your name? " name
 echo "$var1 $var2! My name is $name."
 
 
@@ -30,11 +30,11 @@ echo "$var1 $var2! My name is $name."
 # We will also be using if and else statements to make this fully work.
 
 echo "Hello there $name nice to meet you!"
-read -p "Did you find this scrip helpful? [y/n] "
+read -rp "Did you find this scrip helpful? [y/n] "
 
 # Notice how I didn't define a variable? Now watch what happens.
 
-if [ $REPLY == "y" ] ; then
+if [ "$REPLY" == "y" ] ; then
 	echo "I'm glad you think so."
 else
 	echo "How can I improve this script to better assist you? Please let me know."
@@ -46,11 +46,11 @@ fi
 # Now let's have another example.
 
 
-read -p "Do you like college? [y/n] "
+read -rp "Do you like college? [y/n] "
 
-if [ $REPLY == "y" ] ; then
+if [ "$REPLY" == "y" ] ; then
 	echo "You're doing great!"
-elif [ $REPLY == "n" ] ; then
+elif [ "$REPLY" == "n" ] ; then
 	echo "You might fail college if you hate it. Please try to have more motivation."
 else
 	echo "You didn't answer my question!"

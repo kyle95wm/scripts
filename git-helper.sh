@@ -22,7 +22,7 @@ function menu {
 	echo "6) Write a commit comment - You will open up in a text editor where you can write your comments."
 	echo "7) Push - Push your commits to GitHub"
 	echo
-	read -p "Please pick a number to start or press 'x' to quit: "
+	read -rp "Please pick a number to start or press 'x' to quit: "
 }
 
 function pkg_check {
@@ -43,8 +43,7 @@ echo "Welcome to the git helper script"
 echo "For more info please read the comments in the file"
 sleep 2s
 echo "Checking for git package....."
-pkg_check
-if [ $? != "0" ] ; then
+if ! pkg_check ; then
 	echo "Git package not found!"
 	echo "Installing the package...."
 	pkg_install
@@ -53,32 +52,32 @@ else
 fi
 sleep 2s
 menu
-until [ $REPLY -le "7" ] ; do
+until [ "$REPLY" -le "7" ] ; do
 	clear
 	sleep 2s
 	menu
 done
-if [ $REPLY == 0 ] ; then
+if [ "$REPLY" == 0 ] ; then
 	exit
 fi
-if [ $REPLY == 1 ] ; then
+if [ "$REPLY" == 1 ] ; then
 	################################
 	# Beginning of git init options
 	################################
 	echo "Right now you are in: $PWD."
-	read -p "Would you like to continue with git init? [y/n] "
+	read -rp "Would you like to continue with git init? [y/n] "
 fi
-if [ $REPLY == "y" ] ; then
+if [ "$REPLY" == "y" ] ; then
 	git init
 fi
-if [ $REPLY == "n" ] ; then
+if [ "$REPLY" == "n" ] ; then
 	echo "Please copy this script to the directory where you want to run git init."
 fi
 #################
 # End of git init
 #################
 
-if [ $REPLY == 2 ] ; then
+if [ "$REPLY" == 2 ] ; then
 	################################
 	# Beginning of clone options
 	################################
@@ -87,52 +86,52 @@ if [ $REPLY == 2 ] ; then
 	echo "[http] This is like https but less secure."
 	echo "[ssh] This is the most secure way - this should only be used with git repos you own"
 	echo "NOTE: An SSH keypair is required to use 'ssh'."
-	read -p "Please Pick an option (type exactly what you see in the square brackets"
+	read -rp "Please Pick an option (type exactly what you see in the square brackets"
 fi
 
-if [ $REPLY == "https" ] ; then
+if [ "$REPLY" == "https" ] ; then
 	echo "In order to git clone, this script has automatically typed 'git clone' for you."
-	read -e "Please type the full URL of the remote repo to clone:" clonelink
-	git_clone $clonelink
+	read -rp "Please type the full URL of the remote repo to clone: " clonelink
+	git_clone "$clonelink"
 	exit
 fi
 
-if [ $REPLY == "http" ] ; then
+if [ "$REPLY" == "http" ] ; then
         echo "In order to git clone, this script has automatically typed 'git clone' for you."
-        read -e "Please type the full URL of the remote repo to clone:" clonelink
-        git_clone $clonelink
+        read -rp "Please type the full URL of the remote repo to clone: " clonelink
+        git_clone "$clonelink"
         exit
 fi
 
-if [ $REPLY == "ssh" ] ; then
+if [ "$REPLY" == "ssh" ] ; then
         echo "In order to git clone, this script has automatically typed 'git clone' for you."
-        read -e "Please type the SSH clone URL:" clonelink
-        git_clone $clonelink
+        read -rp "Please type the SSH clone URL: " clonelink
+        git_clone "$clonelink"
         exit
 fi
 	#############################
 	# Ending of clone options
 	#############################
 
-if [ $REPLY == 3 ] ; then
+if [ "$REPLY" == 3 ] ; then
 	git pull
 	exit
 fi
 
-if [ $REPLY == 4 ] ; then
-	read -p "Please provide the name of the file that you wish to add to the stage: " file
-	git add $file
+if [ "$REPLY" == 4 ] ; then
+	read -rp "Please provide the name of the file that you wish to add to the stage: " file
+	git add "$file"
 fi
 
-if [ $REPLY == 5 ] ; then
+if [ "$REPLY" == 5 ] ; then
 	git add -A
 fi
 
-if [ $REPLY == 6 ] ; then
+if [ "$REPLY" == 6 ] ; then
 	git commit
 fi
 
-if [ $REPLY == 7 ] ; then
+if [ "$REPLY" == 7 ] ; then
 	git push
 fi
 exit

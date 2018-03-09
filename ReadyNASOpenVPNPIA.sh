@@ -11,15 +11,14 @@
 # as this is what this script will be based on for the most part.
 
 echo "Checking current directory...."
-pwd |grep /etc/openvpn
-if [ $? != "0" ] ; then
+if ! pwd |grep /etc/openvpn ; then
 	echo "This script will assume you already have SSH enabled on your ReadyNAS"
 
 	echo "NOTE: Enabling SSH may void your warrenty and Netgear will deny service."
 
-	read -p "Continue? [y/n]: "
+	read -rp "Continue? [y/n]: "
 
-	if [ $REPLY == y ] ; then
+	if [ "$REPLY" == "y" ] ; then
 		echo "Great!"
 		apt-get update
 		apt-get install openvpn nano -y
@@ -35,14 +34,14 @@ else
 	echo "I will now create a file named userpass.file"
 	echo "This will have your PIA username and password inside of it"
 	echo "which you will enter below:"
-	read -p "Please enter your PIA username - this is the username you use to log in to the website to manage your account: " piauser
-	read -p "Please enter your PIA password: " piapass
+	read -rp "Please enter your PIA username - this is the username you use to log in to the website to manage your account: " piauser
+	read -rp "Please enter your PIA password: " piapass
 	cat > /etc/openvpn/userpass.file <<EOF
 $piauser
 $piapass
 EOF
 	ls |grep .ovpn
-	read -p "Please copy/paste the name of the ovpn file you wish to use(includes the .ovpn extension): " conffile
+	read -rp "Please copy/paste the name of the ovpn file you wish to use(includes the .ovpn extension): " conffile
 	sed s/"auth-user-pass"/"auth-user-pass userpass.file"/ "$conffile" > My.ovpn
 	mv My.ovpn client.conf
 	/etc/init.d/openvpn start

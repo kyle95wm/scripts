@@ -43,7 +43,7 @@ chmod -R 777 /tftpboot
 chown -R nobody /tftpboot
 
 service xinetd restart
-if [ $? != 0 ] ; then
+if ! service xinetd restart ; then
 /etc/init.d/xinetd restart
 fi
 echo "Done!"

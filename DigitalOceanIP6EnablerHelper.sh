@@ -12,7 +12,7 @@ echo "This script is designed to enable IP Version 6 on your Digital Ocean dropl
 
 echo "THIS SCRIPT COMES WITH NO WARRENTY!!"
 
-read -p "Type AGREE to continue. Otherwise, press ENTER to quit.: " eulaaccept
+read -rp "Type AGREE to continue. Otherwise, press ENTER to quit.: " eulaaccept
 
 if [ "$eulaaccept" == "AGREE" ] ; then
 	echo "Okay! Remember, if anything bad happens to your server, don't come crying to me."
@@ -30,9 +30,9 @@ echo "Your IP6 CIDR is:"
 curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv6/cidr
 echo
 echo "You must make sure the info is correct in all 3 parts"
-read -p "Do the Public, Gateway and CIDR check out? [y/n]: " check
+read -rp "Do the Public, Gateway and CIDR check out? [y/n]: " check
 
-if [ $check == "y" ] ; then
+if [ "$check" == "y" ] ; then
 echo "backing up the interfaces file now...."
 cp /etc/network/interfaces /etc/network/interfaces.orig
 echo "Okay.....Setting up your interface file now....."

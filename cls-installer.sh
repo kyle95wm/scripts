@@ -30,8 +30,8 @@ fi
 function cls_install {
 echo "Welcome to the installer!"
 echo "This is your last chance to back out!"
-read -p "Would you like to continue? [y/n] : " install_option
-if [ $install_option == "y" ] ; then
+read -rp "Would you like to continue? [y/n] : " install_option
+if [ "$install_option" == "y" ] ; then
 clear
 	echo "Installing cls file to '/usr/local/bin'...."
 	echo "Creating the CLS file...."
@@ -46,7 +46,7 @@ cat > /usr/local/bin/cls <<EOF
 clear
 printf '\033[3J'
 EOF
-elif [ $install_option == "n" ] ; then
+elif [ "$install_option" == "n" ] ; then
 	echo "Exiting....."
 	exit 0
 else
@@ -63,9 +63,9 @@ else
 	echo "CLS can't be detected. Either CLS is not installed or you changed the location or file name."
 	exit 1
 fi
-read -p "Would you like to continue uninstalling CLS? [y/n ] : " uninstall_option
+read -rp "Would you like to continue uninstalling CLS? [y/n ] : " uninstall_option
 
-if [ $uninstall_option == "y" ] ; then
+if [ "$uninstall_option" == "y" ] ; then
 	echo "Removing CLS..."
 	rm -r -f "/usr/local/bin/cls"
 	sleep 1s
@@ -74,7 +74,7 @@ if [ $uninstall_option == "y" ] ; then
 	sleep 1s
 	hash -d cls
 	echo "Uninstall completed!"
-elif [ $uninstall_option == "n" ] ; then
+elif [ "$uninstall_option" == "n" ] ; then
 	echo "Good to know you find my command useful!"
 	exit 0
 else

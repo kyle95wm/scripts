@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 dir="/va/spool/asterisk/monitor" # The call recordings directory
 year="$(date -d '-3 months' +%Y)" # Get year from 3 months ago in XXXX form
 month="$(date -d '-3 months' +%m)" # Get month number from 3 months ago in YY form

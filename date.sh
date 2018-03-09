@@ -4,7 +4,7 @@ year="$(date -d '-3 months' +%Y)" # Get year from 3 months ago in XXXX form
 month="$(date -d '-3 months' +%m)" # Get month number from 3 months ago in YY form
 if [ -d "$dir/$year/$month" ] ; then # Check if month's directory exists
 	# If True, delete the directory
-	if "rm -rf '$dir/$year/$month/*'" ; then # Did our deletion complete successfully?
+	if rm -rf "${dir:?}/${year:?}/${month:?}/*" ; then # Did our deletion complete successfully?
 		# If True, send an email.
 		# We also grab the month name instead of number.
 		# For example, a message might say "Hi, just letting you know that the

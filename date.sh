@@ -16,4 +16,6 @@ if [ -d "$dir/$year/$month" ] ; then # Check if month's directory does exist
 		# We will also tell the administrator which server failed via its IP address.
 		echo "Hi, just letting you know that the recordings for the month of $(date -d '-3 months' +%b) were NOT purged. Please log into server $(curl -s icanhazip.com) to investigate." | mail -s FAILED kyle95wm@gmail.com
 	fi
+else
+	echo "Hi, just letting you know that there are no recordings for the month of $(date -d '-3 months' +%b) for server $(hostname -f) with IP $(curl -s icanhazip.com). Thank you!" | mail -s nothingtopurge kyle95wm@gmail.com
 fi

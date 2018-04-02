@@ -4,21 +4,16 @@ dir="/var/spool/asterisk/monitor" # The call recordings directory
 year="$(date -d '-3 months' +%Y)" # Get year from 3 months ago in XXXX form
 month="$(date -d '-3 months' +%m)" # Get month number from 3 months ago in YY form
 lastyear="$(date -d '-1 year' +%Y)" # Get last year's year number
-# Functions
-
-function PurgeLastYearDirectory() {
-if [ -d "$dir/$lastyear" ] ; then # Check for a directory from last year
-	if [ -z "$(ls -A "$dir/$lastyear")" ] ; then
-        if rm -rf "${dir:?}/${lastyear:?}" ; then
-            echo "Hi, just letting you know that the empty directory for $lastyear was deleted for server $(hostname -f) with IP $(curl -s icanhazip.com)." | mail -s lastyear kyle95wm@gmail.com
-        fi
-	fi
-fi
-}
 
 # Check if "last" was specified as an argument.
 if [ "$1" == "last" ] ; then
-	PurgeLastYearDirectory
+    if [ -d "$dir/$lastyear" ] ; then # Check for a directory from last year
+        if [ -z "$(ls -A "$dir/$lastyear")" ] ; then
+            if rm -rf "${dir:?}/${lastyear:?}" ; then
+                echo "Hi, just letting you know that the empty directory for $lastyear was deleted for server $(hostname -f) with IP $(curl -s icanhazip.com)." | mail -s lastyear kyle95wm@gmail.com
+            fi
+        fi
+    fi
 	exit
 fi
 

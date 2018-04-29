@@ -4,6 +4,7 @@ file=""
 
 if [ -z "$1" ] ; then
 	echo "Usage: $0 [file-to-encrypt-or-decrypt]"
+	exit 2
 else
 	file="$1"
 fi

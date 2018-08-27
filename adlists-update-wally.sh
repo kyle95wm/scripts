@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#######################################################################
+# Add the following code snippet to a file in /etc/cron.d/
+# 0 9 * * 3 root PATH="$PATH:/usr/lobal/bin/" adlist-update-wally.sh
+# PLEASE PUT THIS FILE INTO /usr/local/bin/
+#######################################################################
+
+
 if [ "$(id -u)" != "0" ] ; then
 	echo "Please run this script as root"
 	exit 2

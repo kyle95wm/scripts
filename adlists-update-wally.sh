@@ -26,4 +26,4 @@ cat /etc/pihole/personal-adlists.list <(wget -qO - https://v.firebog.net/hosts/l
 #cat /etc/pihole/personal-adlists.list <(wget -qO - https://v.firebog.net/hosts/lists.php?type=all 2> /dev/null) | sudo tee /etc/pihole/adlists.list
 
 # Update the adlists
-pihole -g
+pihole -g -f

@@ -67,7 +67,7 @@
 #22. save and exit
 
 #VARS
-FILES=(black.list blacklist.txt regex.list whitelist.txt lan.list) #list of files you want to sync
+FILES=(black.list blacklist.txt regex.list whitelist.txt lan.list pihole-FTL.conf) #list of files you want to sync
 PIHOLEDIR=/etc/pihole #working dir of pihole
 PIHOLE2=192.168.101.254 #IP of 2nd PiHole
 HAUSER=root #user of second pihole

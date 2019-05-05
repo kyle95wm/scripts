@@ -2,7 +2,7 @@
 
 #######################################################################
 # Add the following code snippet to a file in /etc/cron.d/
-# 0 9 * * 3 root PATH="$PATH:/usr/lobal/bin/" adlist-update-wally.sh
+# 0 9 * * 3 root PATH="$PATH:/usr/lobal/bin/" adlists-update-wally.sh
 # PLEASE PUT THIS FILE INTO /usr/local/bin/
 #######################################################################
 

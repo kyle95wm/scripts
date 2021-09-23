@@ -15,11 +15,11 @@ read -rp "Please choose from the list by entering a number: " MENU
 if [ "$MENU" == "1" ] ; then
 	# BEGIN COPY FROM LOCALHOST TO REMOTE HOST
 	read -rp "Please enter the FULL path of the file you would like copied to the remote server: " LOCALFILE
-	read -rp "Please enter the username of the remote host: " USER
+	#read -rp "Please enter the username of the remote host: " USER
 	read -rp "Please enter the host you would like to use (IP or FQDN): " HOST
 	read -rp "Please enter a directory on the REMOTE host to copy $LOCALFILE to: " REMOTEDIR
 	echo "Copying $LOCALFILE as $USER to $HOST at $REMOTEDIR...."
-	if ! scp "$LOCALFILE" "$USER"@"$HOST":"$REMOTEDIR" ; then
+	if ! scp -r "$LOCALFILE" "$HOST":"$REMOTEDIR" ; then
 		echo "COPY FAILED!"
 		exit 1
 	fi
@@ -29,10 +29,10 @@ fi
 if [ "$MENU" == "2" ] ; then
 	# BEGIN COPY FROM REMOTE HOST TO LOCALHOST
         read -rp "Please enter the FULL path of the file you would like copied from the remote server: " LOCALFILE
-        read -rp "Please enter the username of the remote host: " USER
+        #read -rp "Please enter the username of the remote host: " USER
         read -rp "Please enter the host you would like to use (IP or FQDN): " HOST
         echo "Copying $LOCALFILE as $USER from $HOST at $REMOTEDIR to LOCAL HOST at $HOME...."
-	if ! scp "$USER"@"$HOST":"$LOCALFILE" "$HOME" ; then
+	if ! scp -r "$HOST":"$LOCALFILE" "$HOME" ; then
         echo "COPY FAILED!"
         exit 1
     fi

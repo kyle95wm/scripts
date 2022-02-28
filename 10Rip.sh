@@ -30,4 +30,4 @@ if [ -z "$yt" ] ; then
 	exit 1
 fi
 # The main command
-yt-dlp "$url" --username $user --password $pass --ffmpeg-location "$ff"
+yt-dlp "$url" --username $user --password $pass --ffmpeg-location "$ff" -concurrent-fragments 100 --downloader aria2c
